@@ -1,3 +1,4 @@
+import re
 import yaml
 from modules.weights import load_weights
 import spacy
