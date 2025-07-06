@@ -1,0 +1,113 @@
+# ===== DATA ANALYSIS =====
+python
+sql
+excel
+power bi
+tableau
+looker studio
+data analysis
+data visualization
+data wrangling
+data cleaning
+statistics
+data mining
+regression analysis
+pandas
+numpy
+matplotlib
+seaborn
+dashboard
+
+# ===== DATA SCIENCE =====
+machine learning
+deep learning
+scikit-learn
+tensorflow
+keras
+big data
+nlp
+classification
+clustering
+predictive modeling
+time series
+data science
+feature engineering
+model evaluation
+spark
+hadoop
+ai
+
+# ===== BI & ANALYTICS =====
+business intelligence
+bi tools
+power bi
+tableau
+qlik
+looker
+kpi tracking
+dashboarding
+etl
+data pipeline
+sql scripting
+report automation
+data warehouse
+data mart
+ad hoc reporting
+
+# ===== DIGITAL MARKETING =====
+digital marketing
+seo
+sem
+google ads
+facebook ads
+social media marketing
+email marketing
+marketing automation
+performance marketing
+growth marketing
+web analytics
+google analytics
+meta business suite
+paid media
+retargeting
+conversion rate optimization (cro)
+utm tracking
+
+# ===== MARKETING =====
+marketing strategy
+content marketing
+brand management
+product marketing
+campaign management
+go-to-market strategy
+market segmentation
+customer journey
+customer persona
+competitive analysis
+marketing research
+marketing funnel
+media planning
+influencer marketing
+copywriting
+
+# ===== BUSINESS =====
+business analysis
+business strategy
+stakeholder management
+project management
+agile
+scrum
+financial modeling
+problem solving
+communication
+critical thinking
+presentation skills
+negotiation
+leadership
+user research
+customer insights
+design thinking
+business development
+kpi
+roi
+swot analysis
