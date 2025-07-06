@@ -11,7 +11,7 @@ def get_nlp():
         except:
             print("⚠️ Cannot download SpaCy model.")
             return spacy.blank("en")
-    return spacy.load("en_core_web_sm", exclude=["parser", "ner", "lemmatizer"])
+    return spacy.load("en_core_web_sm")
 
 nlp = get_nlp()
 
