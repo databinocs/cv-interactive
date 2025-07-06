@@ -25,18 +25,35 @@ KNOWN_SKILLS = {
 def extract_skills(text):
     doc = nlp(text.lower())
 
-    # Nếu không có parser (blank model), bỏ qua noun_chunks
+    # Bọc noun_chunks để tránh lỗi nếu parser thiếu
     noun_chunks = set()
     try:
-        noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks)
-    except ValueError:
-        print("⚠️ noun_chunks disabled due to missing parser.")
+        noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks if len(chunk.text.strip().split()) <= 5)
+    except:
+        pass
 
-    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["SKILL", "ORG", "PRODUCT"])
-    tokens = set(token.text.strip() for token in doc if not token.is_stop and not token.is_punct and len(token.text.strip()) > 2)
+    # Entity tên kỹ năng, tổ chức, sản phẩm
+    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["ORG", "PRODUCT", "SKILL", "WORK_OF_ART"])
 
-    candidates = noun_chunks | entities | tokens
-    return set(map(str.lower, candidates))
+    # Lọc token: không stopword, không số, không email, không từ ngắn
+    tokens = set(
+        token.text.strip() for token in doc
+        if not token.is_stop and not token.is_punct and
+           not token.like_num and not token.like_email and
+           len(token.text.strip()) > 2 and token.is_alpha
+    )
+
+    # Kết hợp và loại các biểu thức vô nghĩa
+    all_candidates = noun_chunks | entities | tokens
+    clean_skills = set()
+    for w in all_candidates:
+        if re.search(r'\d', w): continue
+        if "@" in w or ".com" in w: continue
+        if len(w) < 3: continue
+        clean_skills.add(w.lower())
+
+    return clean_skills
+
 
 def match_skills(cv_text, jd_text):
     weights = load_weights()
