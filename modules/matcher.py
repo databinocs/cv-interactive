@@ -4,6 +4,7 @@ from modules.weights import load_weights
 import spacy
 from spacy.util import is_package
 from spacy.cli import download
+from spacy.lang.en.stop_words import STOP_WORDS
 
 def get_nlp():
     if not is_package("en_core_web_sm"):
@@ -23,37 +24,34 @@ KNOWN_SKILLS = {
     "communication", "project management", "ai", "git"
 }
 
+
+nlp = spacy.load("en_core_web_sm")
+
+def clean_word(w):
+    w = w.lower().strip()
+    if len(w) <= 2:
+        return False
+    if re.search(r'\d', w):
+        return False
+    if not w.isalpha():
+        return False
+    if w in STOP_WORDS:
+        return False
+    return True
+
 def extract_skills(text):
     doc = nlp(text.lower())
+    noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks)
+    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["ORG", "PRODUCT", "SKILL", "PERSON"])
+    tokens = set(token.text.strip() for token in doc if not token.is_stop and not token.is_punct)
+    candidates = noun_chunks | entities | tokens
 
-    # Bọc noun_chunks để tránh lỗi nếu parser thiếu
-    noun_chunks = set()
-    try:
-        noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks if len(chunk.text.strip().split()) <= 5)
-    except:
-        pass
-
-    # Entity tên kỹ năng, tổ chức, sản phẩm
-    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["ORG", "PRODUCT", "SKILL", "WORK_OF_ART"])
-
-    # Lọc token: không stopword, không số, không email, không từ ngắn
-    tokens = set(
-        token.text.strip() for token in doc
-        if not token.is_stop and not token.is_punct and
-           not token.like_num and not token.like_email and
-           len(token.text.strip()) > 2 and token.is_alpha
-    )
-
-    # Kết hợp và loại các biểu thức vô nghĩa
-    all_candidates = noun_chunks | entities | tokens
-    clean_skills = set()
-    for w in all_candidates:
-        if re.search(r'\d', w): continue
-        if "@" in w or ".com" in w: continue
-        if len(w) < 3: continue
-        clean_skills.add(w.lower())
-
-    return clean_skills
+    # Lọc
+    cleaned = set()
+    for w in candidates:
+        if clean_word(w):
+            cleaned.add(w.lower())
+    return cleaned
 
 
 def match_skills(cv_text, jd_text):
