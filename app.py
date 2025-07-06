@@ -5,13 +5,6 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import plotly.express as px
 import pandas as pd
-import spacy
-
-from spacy.util import is_package
-from spacy.cli import download
-
-if not is_package("en_core_web_sm"):
-    download("en_core_web_sm")
 
 from modules.parser import extract_text_from_pdf
 from modules.matcher import match_skills, extract_skills

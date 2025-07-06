@@ -1,18 +1,20 @@
 import yaml
 from modules.weights import load_weights
+mport spacy
+from spacy.util import is_package
+from spacy.cli import download
 
 def get_nlp():
-    import spacy
-    from spacy.cli import download
-    from spacy.util import is_package
-
     if not is_package("en_core_web_sm"):
         try:
             download("en_core_web_sm")
         except:
-            print("⚠️ Cannot download SpaCy model in this environment.")
-
+            print("⚠️ Cannot download SpaCy model.")
+            return spacy.blank("en")
     return spacy.load("en_core_web_sm", exclude=["parser", "ner", "lemmatizer"])
+
+nlp = get_nlp()
+
 
 KNOWN_SKILLS = {
     "python", "sql", "excel", "power bi", "tableau",
