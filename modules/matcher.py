@@ -66,7 +66,7 @@ def match_skills(cv_text, jd_text):
     score = round((matched_weight / total_weight) * 100, 2) if total_weight else 0
 
     return {
-        "score": score
+        "score": score,
         "matched": matched,
         "missing": missing,
         "extra": extra,
