@@ -1,21 +1,13 @@
 import spacy
 import yaml
+from modules.weights import load_weights
 from spacy.cli import download
-import subprocess
+from spacy.util import is_package
 
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
+if not is_package("en_core_web_sm"):
+    download("en_core_web_sm")
 
-
-def load_weights():
-    try:
-        with open("weights.yaml", "r", encoding="utf-8") as f:
-            return yaml.safe_load(f)
-    except FileNotFoundError:
-        return {}
+nlp = spacy.load("en_core_web_sm")
 
 KNOWN_SKILLS = {
     "python", "sql", "excel", "power bi", "tableau",
