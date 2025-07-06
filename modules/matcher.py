@@ -4,9 +4,11 @@ from modules.weights import load_weights
 from spacy.cli import download
 from spacy.util import is_package
 
+# Chỉ tải nếu model chưa tồn tại
 if not is_package("en_core_web_sm"):
     download("en_core_web_sm")
 
+# Load model
 nlp = spacy.load("en_core_web_sm")
 
 KNOWN_SKILLS = {
