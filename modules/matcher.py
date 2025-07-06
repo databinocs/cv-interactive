@@ -1,11 +1,12 @@
 import spacy
 import yaml
 from spacy.cli import download
+import subprocess
 
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    download("en_core_web_sm")
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
     nlp = spacy.load("en_core_web_sm")
 
 
