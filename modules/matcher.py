@@ -1,15 +1,18 @@
-import spacy
 import yaml
 from modules.weights import load_weights
-from spacy.cli import download
-from spacy.util import is_package
 
-# Chỉ tải nếu model chưa tồn tại
-if not is_package("en_core_web_sm"):
-    download("en_core_web_sm")
+def get_nlp():
+    import spacy
+    from spacy.cli import download
+    from spacy.util import is_package
 
-# Load model
-nlp = spacy.load("en_core_web_sm")
+    if not is_package("en_core_web_sm"):
+        try:
+            download("en_core_web_sm")
+        except:
+            print("⚠️ Cannot download SpaCy model in this environment.")
+
+    return spacy.load("en_core_web_sm", exclude=["parser", "ner", "lemmatizer"])
 
 KNOWN_SKILLS = {
     "python", "sql", "excel", "power bi", "tableau",
