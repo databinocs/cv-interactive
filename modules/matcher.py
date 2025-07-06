@@ -24,12 +24,19 @@ KNOWN_SKILLS = {
 
 def extract_skills(text):
     doc = nlp(text.lower())
-    noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks)
-    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["ORG", "PRODUCT", "SKILL"])
-    tokens = set(token.text.strip() for token in doc if not token.is_stop and not token.is_punct)
+
+    # Nếu không có parser (blank model), bỏ qua noun_chunks
+    noun_chunks = set()
+    try:
+        noun_chunks = set(chunk.text.strip() for chunk in doc.noun_chunks)
+    except ValueError:
+        print("⚠️ noun_chunks disabled due to missing parser.")
+
+    entities = set(ent.text.strip() for ent in doc.ents if ent.label_ in ["SKILL", "ORG", "PRODUCT"])
+    tokens = set(token.text.strip() for token in doc if not token.is_stop and not token.is_punct and len(token.text.strip()) > 2)
+
     candidates = noun_chunks | entities | tokens
-    found = {skill for skill in KNOWN_SKILLS for cand in candidates if skill in cand}
-    return found
+    return set(map(str.lower, candidates))
 
 def match_skills(cv_text, jd_text):
     weights = load_weights()
