@@ -63,6 +63,10 @@ def match_skills(cv_text, jd_text):
     missing = jd_keywords - cv_keywords
     extra = cv_keywords - jd_keywords
 
+    weights = load_weights()
+    matched_weight = sum(weights.get(skill, 1) for skill in matched)
+    total_weight = sum(weights.get(skill, 1) for skill in jd_keywords)
+
     score = round((matched_weight / total_weight) * 100, 2) if total_weight else 0
 
     return {
