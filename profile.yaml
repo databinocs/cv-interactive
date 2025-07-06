@@ -1,0 +1,39 @@
+name: Nhat Thien An
+title: Data Analyst & Data Product Enthusiast
+avatar: assets/avatar.webp
+
+about: >
+  I am a data analyst passionate about turning raw data into meaningful insights.
+  I enjoy building practical data tools and exploring machine learning for real-world impact.
+
+experience:
+  - role: Data Analyst
+    company: ABC Tech
+    years: 2021 - Present
+    desc: Built dashboards and models for business teams to make data-driven decisions.
+
+  - role: BI Intern
+    company: FinX
+    years: 2020
+    desc: Supported marketing team with SQL reports and Tableau visualizations.
+
+skills:
+  - Python
+  - SQL
+  - Streamlit
+  - Pandas
+  - Power BI
+
+projects:
+  - title: Data Toolkit Suite
+    link: https://data-toolkit-suite.streamlit.app
+    desc: Clean, explore and export datasets visually.
+
+  - title: Business Insight Studio
+    link: https://business-insight-studio.streamlit.app
+    desc: Segmentation and forecasting tool for business analysts.
+
+contact:
+  github: https://github.com/databinocs
+  linkedin: https://linkedin.com/in/an-le-nhut-thien-a94550367/
+  email: databinocs@gmail.com

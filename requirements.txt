@@ -1,0 +1,11 @@
+streamlit
+pyyaml
+PyMuPDF
+spacy
+scikit-learn
+pandas
+numpy
+plotly
+matplotlib
+fpdf
+deep-translator

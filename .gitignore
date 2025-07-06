@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environment
+venv/
+
+# Streamlit cache
+.streamlit/
+
+# Output files
+*.pdf
+*.md
+*.zip
+
+# Environment files (if added later)
+.env
+
+# VS Code
+.vscode/
