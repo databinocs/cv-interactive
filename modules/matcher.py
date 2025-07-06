@@ -1,6 +1,6 @@
 import yaml
 from modules.weights import load_weights
-mport spacy
+import spacy
 from spacy.util import is_package
 from spacy.cli import download
 
